@@ -1,0 +1,28 @@
+{
+  "name": "nextjs-graphql-starter",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.4.16",
+    "apollo-server-core": "^3.4.0",
+    "apollo-server-micro": "^3.4.0",
+    "graphql": "^15.6.1",
+    "micro": "^9.3.4",
+    "next": "11.1.2",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/react": "17.0.29",
+    "eslint": "8.0.0",
+    "eslint-config-next": "11.1.2",
+    "typescript": "4.4.4"
+  }
+}
