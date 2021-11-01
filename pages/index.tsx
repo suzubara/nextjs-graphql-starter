@@ -6,17 +6,19 @@ import { gql, useQuery } from '@apollo/client'
 import styles from '../styles/Home.module.css'
 
 const GET_TODOS = gql`
-  query todos {
-    id
-    label
-    done
+  query getTodos {
+    todos {
+      id
+      label
+      done
+    }
   }
 `
 
 const Home: NextPage = () => {
   const { loading, error, data } = useQuery(GET_TODOS)
 
-  console.log(data)
+  console.log(loading, error, data)
 
   return (
     <div className={styles.container}>
@@ -31,40 +33,19 @@ const Home: NextPage = () => {
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+        {loading && <p>Loading...</p>}
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+        {error && <p>Error loading!</p>}
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+        {data?.todos?.length < 1 && <p>No todos</p>}
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        <ul>
+          {data?.todos?.map((i: any) => (
+            <li key={`todo_${i.id}`}>
+              {i.label} - {i.done ? 'Complete' : 'Incomplete'}
+            </li>
+          ))}
+        </ul>
       </main>
 
       <footer className={styles.footer}>
